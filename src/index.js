@@ -106,18 +106,17 @@ $(function () {
                         <h2>${device.user}</h2><div class="circle" id="bracelet_status"></div>
                         <div><input id="content" type="text" class="layui-input-inline input-mesg"><button id="send" class="layui-btn layui-btn-warm send_button">Say Hi</button></div>
                         <div class="yellow">
-                        <img src="./src/img/fire_static.jpg" alt="icon">
-                        <p><span id="b_cal">999999</span>Cal</p>
+                        <img src="./src/img/fire_static.jpg" alt="icon" id="cal_img">
+                        <p><span id="b_cal"></span>cal</p>
                         </div>
                         <div class="red">
-						<img src="./src/img/heart_staic.jpg" alt="icon">
-						<p><span id="b_hr">100</span>/s</p>
+						<img src="./src/img/heart_staic.jpg" alt="icon" id="bracelet_hr_img">
+						<p><span id="b_hr"></span>/s</p>
 					    </div>
 					    
 					    <div class="blue">
-                        <img src="./src/img/running_static.jpg" alt="icon">
-                        <a href="javascript:;" mac=${obj.mac}></a>
-                        <p><span id="b_step">999999</span>Steps</p>
+                        <img src="./src/img/running_static.jpg" alt="icon" id="step_img">
+                        <p><span id="b_step"></span>Steps</p>
                         </div>
                         </li>
                         `);
@@ -128,8 +127,8 @@ $(function () {
                         <h2>${device.user}</h2><div class="circle" id="skip_status"></div> 
 
                         <div class="blue" style="left: 13%;top: 42%">
-						<img src="./src/gif/rope.gif" alt="icon">
-						<p><span id="rate">2</span>/times</p>
+						<img src="./src/img/rope_staic.png" alt="icon" id="skip_img">
+						<p><span id="rate"></span>times</p>
 					    </div>
                         </li>
                         `);
@@ -139,8 +138,8 @@ $(function () {
                         <li>
                         <h2>${device.user}</h2><div class="circle" id="belt_status"></div> 
                         <div class="red" style="left: 13%;top: 42%">
-						<img src="./src/gif/heart.gif" alt="icon">
-						<p><span id="hr">100</span>/s</p>
+						<img src="./src/img/heart_staic.jpg" alt="icon" id="belt_hr_img">
+						<p><span id="hr"></span>/s</p>
 					    </div>
                         </li>
                         `);
@@ -157,12 +156,14 @@ $(function () {
         
     }
     
-    $('#send').click(function () {
+    let body = $('body');
+    
+    body.delegate('#send', 'click', function () {
         logd('sned clicked');
         bracelet.api = apiImpl;
         bracelet.sendMsg($('#content').val());
     });
-    $('#startWork').click(function () {
+    body.delegate('#startWork', 'click', function () {
         let beltHeart;
         console.log('scan clicked');
         apiImpl
@@ -178,14 +179,15 @@ $(function () {
                 let type = devInfo.bdaddrs[0].bdaddrType;
                 if (utils.isBelt(mac)) {
                     let hr = belt.getHr(devInfo.adData);
-                    let beltStatus = $('#belt_status');
                     clearInterval(beltHeart);
                     beltHeart = setInterval(function () {
-                        beltStatus.css('background', 'red');
+                        // beltStatus.css('background', 'red');
+                        $('#belt_hr_img').attr('src', "./src/img/heart_staic.jpg");
                         $('#hr').html(0);
                         clearInterval(beltHeart)
                     }, 10 * SECOND_UNIT);
-                    beltStatus.css('background', 'green');
+                    // beltStatus.css('background', 'green');
+                    $('#belt_hr_img').attr('src', "./src/gif/heart.gif");
                     $('#hr').html(hr);
                 } else {
                     if (!utils.isHubConnecting()) {
@@ -195,15 +197,24 @@ $(function () {
                             utils.openTimerTask();
                             if (utils.isBracelet(mac)) {
                                 bracelet.setDisconnectListener(function () {
-                                    $('#bracelet_status').css('background', 'red');
-                                    bracelet.disconnect();
+                                    // $('#bracelet_status').css('background', 'red');
+                                    bracelet.disconnect(function () {
+                                        // let hrImg = $('#bracelet_hr_img');
+                                        // let calImg = $('#cal_img');
+                                        let stepImg = $('#step_img');
+                                        // hrImg.attr('src', './src/img/heart_staic.jpg');
+                                        // calImg.attr('src', './src/img/fire_static.jpg');
+                                        stepImg.attr('src', './src/img/running_static.jpg');
+                                    });
                                     $("#b_hr").html(0);
                                 });
                                 bracelet.connect(mac, type);
                             } else if (utils.isSkip(mac)) {
                                 skip.setDisconnectListener(function () {
-                                    $('#skip_status').css('background', 'red');
-                                    skip.disconnect();
+                                    // $('#skip_status').css('background', 'red');
+                                    skip.disconnect(function () {
+                                        $('#skip_img').attr('src', './src/img/rope_staic.png');
+                                    });
                                     $("#rate").html(0);
                                 });
                                 skip.connect(mac, type, function () {
@@ -215,9 +226,19 @@ $(function () {
                                 logd('conn!', data);
                                 utils.setHubConnectingStatus(false);
                                 if (utils.isBracelet(node)) {
-                                    bracelet.onConnect(node, "bracelet_status");
+                                    bracelet.onConnect(node, function () {
+                                        // let hrImg = $('#bracelet_hr_img');
+                                        // let calImg = $('#cal_img');
+                                        let stepImg = $('#step_img');
+                                        // hrImg.attr('src', './src/gif/heart.gif');
+                                        // calImg.attr('src', './src/gif/fire.gif');
+                                        stepImg.attr('src', './src/gif/running.gif');
+                                    });
                                 } else if (utils.isSkip(node)) {
-                                    skip.onConnect(node, "skip_status")
+                                    skip.onConnect(node, function () {
+                                        let skipImg = $('#skip_img');
+                                        skipImg.attr('src', './src/gif/rope.gif');
+                                    })
                                 }
                             });
                             
@@ -227,7 +248,7 @@ $(function () {
                                 let dataObj = JSON.parse(data);
                                 if (utils.isBracelet(dataObj.id)) {
                                     bracelet.notify(dataObj.value, '#b_hr', '#b_step', '#b_cal');
-                                } else {
+                                } else if (utils.isSkip(dataObj.id)) {
                                     let skipData = formatSkippingData(dataObj.value);
                                     skip.notify($("#rate"), skipData);
                                 }
@@ -271,6 +292,11 @@ $(function () {
                 $('#bracelet_mac').val("");
                 $('#skip_mac').val("");
                 $('#belt_mac').val("");
+            });
+            
+            $('#test').click(function () {
+                
+                layer.close(layerIndex);
             });
             
             $('#finish').click(function () {
@@ -326,51 +352,5 @@ $(function () {
             })
         }
     );
-    
-    if ('getContext' in document.createElement('canvas')) {
-        HTMLImageElement.prototype.play = function () {
-            if (this.storeCanvas) {
-                // 移除存储的canvas
-                this.storeCanvas.parentElement.removeChild(this.storeCanvas);
-                this.storeCanvas = null;
-                // 透明度还原
-                image.style.opacity = '';
-            }
-            if (this.storeUrl) {
-                this.src = this.storeUrl;
-            }
-        };
-        HTMLImageElement.prototype.stop = function () {
-            let canvas = document.createElement('canvas');
-            // 尺寸
-            let width = this.width, height = this.height;
-            if (width && height) {
-                // 存储之前的地址
-                if (!this.storeUrl) {
-                    this.storeUrl = this.src;
-                }
-                // canvas大小
-                canvas.width = width;
-                canvas.height = height;
-                // 绘制图片帧（第一帧）
-                canvas.getContext('2d').drawImage(this, 0, 0, width, height);
-                // 重置当前图片
-                try {
-                    this.src = canvas.toDataURL("image/gif");
-                } catch (e) {
-                    // 跨域
-                    this.removeAttribute('src');
-                    // 载入canvas元素
-                    canvas.style.position = 'absolute';
-                    // 前面插入图片
-                    this.parentElement.insertBefore(canvas, this);
-                    // 隐藏原图
-                    this.style.opacity = '0';
-                    // 存储canvas
-                    this.storeCanvas = canvas;
-                }
-            }
-        };
-    }
     
 });

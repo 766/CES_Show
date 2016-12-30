@@ -4,7 +4,7 @@
  * CESDemo
  */
 let bracelet = {};
-let packetSeq = 0;
+let packetSeq = 1;
 let packets = [];
 let braceletHeart;
 bracelet.node = "";
@@ -13,8 +13,9 @@ bracelet.connect = function (mac, type) {
     apiImpl.conn({node: mac, type: type});
 };
 
-bracelet.onConnect = function (node, htmlElementId) {
-    $("#" + htmlElementId).css('background', 'green');
+bracelet.onConnect = function (node, fnRefUi) {
+    // $("#" + htmlElementId).css('background', 'green');
+    fnRefUi();
     bracelet.node = node;
     bracelet.status = true;
     this.openHr();
@@ -38,14 +39,21 @@ bracelet.openStep = function () {
     apiImpl.write({
         node: bracelet.node,
         handle: '19',
-        value: 'ff2006000227'
-    }, function () {
-        apiImpl.write({
-            node: bracelet.node,
-            handle: '19',
-            value: 'ff000c000501100401010128'
-        })
+        value: 'ff2006000227',
+        success: function () {
+            let data = ['ff000c', getPacketSequence(), '011004010101'];
+            checksum(data);
+            apiImpl.write({
+                node: bracelet.node,
+                handle: '19',
+                value: data.join(''),
+                success: function () {
+                    console.log(444444444444)
+                }
+            })
+        }
     });
+    
 };
 
 bracelet.notify = function (value) {
@@ -70,7 +78,8 @@ bracelet.setDisconnectListener = function (onDisconnect) {
     bracelet.onDisconnect = onDisconnect;
 };
 
-bracelet.disconnect = function () {
+bracelet.disconnect = function (fnRefUi) {
+    fnRefUi();
     apiImpl.conn.close({node: bracelet.node})
 };
 
@@ -93,7 +102,10 @@ bracelet.sendMsg = function (msg) {
 function packetData(data) {
     let dataLength = data.length / 2;
     if (dataLength < 5) {
-        //TODO 单包
+        let totalLen = 16 + dataLength;
+        let packet = ['ff00', totalLen.toString(16), '0b', getPacketSequence(), "02100201" + '0' + (dataLength + 4).toString(16) + "0103" + '0101', data + "",];
+        checksum(packet);
+        packets.push(packet);
     } else {
         //多包
         setOfPackets(data, data.length, 0)
@@ -118,7 +130,9 @@ function setOfPackets(data, remainder, sequence) {
         let packetHeader = 'ff';
         if (sequence == 0) {
             let content = data.slice(0, 10);
-            let packet = [packetHeader, identifier, getTotalLength(content.length, sequence).toString(16), getPacketSequence(), "02100201" + (remainder / 2 + 4).toString(16) + "0103" + '0101', content + "",];
+            let contentLen = (remainder / 2 + 4).toString(16);
+            contentLen = contentLen.length < 2 ? '0' + contentLen : contentLen;
+            let packet = [packetHeader, identifier, getTotalLength(content.length, sequence).toString(16), getPacketSequence(), "02100201" + contentLen + "0103" + '0101', content + "",];
             checksum(packet);
             remainder -= 10;
             sequence += 1;
@@ -209,86 +223,120 @@ Array.prototype.insert = function (index, item) {
     this.splice(index, 0, item);
 };
 
-function encodeUtf8(s1) {
-    let s = escape(s1);
-    let sa = s.split("%");
-    let retV = "";
-    if (sa[0] != "") {
-        retV = sa[0];
-    }
-    for (let i = 1; i < sa.length; i++) {
-        if (sa[i].substring(0, 1) == "u") {
-            retV += hex2Utf8(str2Hex(sa[i].substring(1, 5)));
-            
+function encodeUtf8(data) {
+    // return encodeURI(data).split('%').join("")
+    let val = "";
+    for (let i = 0; i < data.length; i++) {
+        let char = data[i];
+        if (isChineseChar(char) || isFullwidthChar(char)) {
+            if (val == "") {
+                val = encodeURI(char).split('%').join(",");
+            } else {
+                val += encodeURI(char).split('%').join(",");
+            }
+        } else {
+            if (val == "")
+                val = data.charCodeAt(i).toString(16);
+            else
+                val += "," + data.charCodeAt(i).toString(16);
         }
-        else retV += "%" + sa[i];
     }
     
-    let str = retV.split('%');
-    return str.join("")
-}
-
-function str2Hex(s) {
-    let c = "";
-    let n;
-    let ss = "0123456789ABCDEF";
-    let digS = "";
-    for (let i = 0; i < s.length; i++) {
-        c = s.charAt(i);
-        n = ss.indexOf(c);
-        digS += dec2Dig(eval(n));
-        
-    }
-    //return value;
-    return digS;
-}
-
-function dec2Dig(n1) {
-    let s = "";
-    let n2 = 0;
-    for (let i = 0; i < 4; i++) {
-        n2 = Math.pow(2, 3 - i);
-        if (n1 >= n2) {
-            s += '1';
-            n1 = n1 - n2;
-        }
-        else
-            s += '0';
-        
-    }
-    return s;
+    return val.split(",").join('');
     
 }
 
-function dig2Dec(s) {
-    let retV = 0;
-    if (s.length == 4) {
-        for (let i = 0; i < 4; i++) {
-            retV += eval(s.charAt(i)) * Math.pow(2, 3 - i);
-        }
-        return retV;
-    }
-    return -1;
+//是否含有中文（也包含日文和韩文）
+function isChineseChar(str) {
+    let reg = /[\u4E00-\u9FA5\uF900-\uFA2D]/;
+    return reg.test(str);
+}
+//同理，是否含有全角符号的函数
+function isFullwidthChar(str) {
+    let reg = /[\uFF00-\uFFEF]/;
+    return reg.test(str);
 }
 
-function hex2Utf8(s) {
-    let retS = "";
-    let tempS = "";
-    let ss = "";
-    if (s.length == 16) {
-        tempS = "1110" + s.substring(0, 4);
-        tempS += "10" + s.substring(4, 10);
-        tempS += "10" + s.substring(10, 16);
-        let sss = "0123456789ABCDEF";
-        for (let i = 0; i < 3; i++) {
-            retS += "%";
-            ss = tempS.substring(i * 8, (eval(i) + 1) * 8);
-            
-            
-            retS += sss.charAt(dig2Dec(ss.substring(0, 4)));
-            retS += sss.charAt(dig2Dec(ss.substring(4, 8)));
-        }
-        return retS;
-    }
-    return "";
-}
+/*function encodeUtf8(s1) {
+ let s = escape(s1);
+ let sa = s.split("%");
+ let retV = "";
+ if (sa[0] != "") {
+ retV = sa[0];
+ }
+ for (let i = 1; i < sa.length; i++) {
+ if (sa[i].substring(0, 1) == "u") {
+ retV += hex2Utf8(str2Hex(sa[i].substring(1, 5)));
+ 
+ }
+ else retV += "%" + sa[i];
+ }
+ 
+ let str = retV.split('%');
+ return str.join("")
+ }
+ 
+ function str2Hex(s) {
+ let c = "";
+ let n;
+ let ss = "0123456789ABCDEF";
+ let digS = "";
+ for (let i = 0; i < s.length; i++) {
+ c = s.charAt(i);
+ n = ss.indexOf(c);
+ digS += dec2Dig(eval(n));
+ 
+ }
+ //return value;
+ return digS;
+ }
+ 
+ function dec2Dig(n1) {
+ let s = "";
+ let n2 = 0;
+ for (let i = 0; i < 4; i++) {
+ n2 = Math.pow(2, 3 - i);
+ if (n1 >= n2) {
+ s += '1';
+ n1 = n1 - n2;
+ }
+ else
+ s += '0';
+ 
+ }
+ return s;
+ 
+ }
+ 
+ function dig2Dec(s) {
+ let retV = 0;
+ if (s.length == 4) {
+ for (let i = 0; i < 4; i++) {
+ retV += eval(s.charAt(i)) * Math.pow(2, 3 - i);
+ }
+ return retV;
+ }
+ return -1;
+ }
+ 
+ function hex2Utf8(s) {
+ let retS = "";
+ let tempS = "";
+ let ss = "";
+ if (s.length == 16) {
+ tempS = "1110" + s.substring(0, 4);
+ tempS += "10" + s.substring(4, 10);
+ tempS += "10" + s.substring(10, 16);
+ let sss = "0123456789ABCDEF";
+ for (let i = 0; i < 3; i++) {
+ retS += "%";
+ ss = tempS.substring(i * 8, (eval(i) + 1) * 8);
+ 
+ 
+ retS += sss.charAt(dig2Dec(ss.substring(0, 4)));
+ retS += sss.charAt(dig2Dec(ss.substring(4, 8)));
+ }
+ return retS;
+ }
+ return "";
+ }*/

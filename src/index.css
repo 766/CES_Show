@@ -128,7 +128,7 @@ section h1 {
 
 
 .show-pannel h2 {
-    margin-top: 20px;
+    margin-top: 10px;
     font-size: 48px;
     color: #fff;
 }
@@ -365,10 +365,12 @@ section h1 {
 }
 
 .start-btn{
+
     display: flex;
     justify-content: center;
 }
 .start-btn a{
+    cursor: pointer;
     width:350px;
     height:350px;
     background: url('img/button_normal.png') 0 0 no-repeat;

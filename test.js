@@ -329,10 +329,10 @@ function getConnectedDev() {
 function disconnectDev() {
     //node: 'C0:77:19:AA:5D:B2' //手环
     // node:"E9:14:DD:A4:C2:9C" //手环新
-    // node:"D0:BF:58:A8:5A:4D" //跳绳
-    // node:"FE:2E:F1:3A:35:F4" //心率带
-    // apiImpl.conn.close({node: 'C0:77:19:AA:5D:B2'})
-    apiImpl.conn.close({node: "E9:14:DD:A4:C2:9C"})
+    // node:"D0:BF:58:A8:5A:4D" //心率带
+    // node:"FE:2E:F1:3A:35:F4" //跳绳
+    apiImpl.conn.close({node: 'C0:77:19:AA:5D:B2'})
+    // apiImpl.conn.close({node: "FE:2E:F1:3A:35:F4"})
     // conn.close({node: 'FE:2E:F1:3A:35:F4'})
     // FE:2E:F1:3A:35:F4
 }

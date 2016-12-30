@@ -11,14 +11,16 @@ skip.connect = function (mac, type) {
     apiImpl.conn({node: mac, type: type});
 };
 
-skip.onConnect = function (node, htmlElementId) {
-    $("#" + htmlElementId).css('background', 'green');
+skip.onConnect = function (node, fnRefUi) {
+    // $("#" + htmlElementId).css('background', 'green');
+    fnRefUi();
     skip.node = node;
     skip.status = true;
     this.openSkip();
 };
 
-skip.disconnect = function () {
+skip.disconnect = function (fnRefUi) {
+    fnRefUi();
     apiImpl.conn.close({node: skip.node})
 };
 
