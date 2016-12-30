@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CES Demo</title>
+</head>
+<body>
+
+<input type="text" placeholder="请输入hub的ip地址" id="hub_ip">
+<input type="text" placeholder="请输入hub的mac地址" id="hub_mac">
+<button onclick="config()">config</button>
+<br>
+<br>
+
+<button onclick="startScan()">scan</button>
+<button onclick="stopScan()">stop</button>
+<button onclick="getConnectedDev()">getConnectedDevice</button>
+<button onclick="disconnectDev()">disconnectDevice</button>
+<button onclick="getHandle()">getHandle</button>
+
+<br>
+<br>
+<input type="text" placeholder="请输入想要发送的数据" id="content">
+<input type="text" placeholder="请输入接受数据的mac" id="dev_mac" value="E9:14:DD:A4:C2:9C">
+<button onclick="send()">send</button>
+
+<br>
+<br>
+腰带hr:<input id="hr1" type="text" readonly="readonly"><br><br>
+手环hr:<input id="hr2" type="text" readonly="readonly"><br><br>
+跳绳 :<input id="jump" type="text" readonly="readonly"><br><br>
+
+<script src="src/lib/zepto.js"></script>
+<script src="test.js"></script>
+</body>
+</html>

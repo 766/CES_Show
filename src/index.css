@@ -1,0 +1,523 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    font-size: 62.5%;
+    background-color: #061223 !important;
+    color: #fff !important;
+}
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+section {
+    font-family: 'Microsoft YaHei';
+}
+
+.start-config {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-justify-content: space-around;
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+
+.start-config button {
+    width: 20%;
+    -webkit-box-flex: 0;
+    -webkit-flex: none;
+    -ms-flex: none;
+    flex: none;
+    font-size: 2rem;
+    padding: .5rem;
+}
+
+ul, li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/*img {*/
+/*width: 42px;*/
+/*height: 42px;*/
+/*}*/
+
+section h1, section h2 {
+    padding: 0;
+    font-size: 40px;
+    color: #FF9900;
+    font-weight: normal;
+    margin-top: 53px;
+    margin-left: 20px;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+.show-pannel {
+    height: 100%;
+    margin-top: 40px;
+}
+
+section h1 {
+    text-align: center;
+}
+
+.show-pannel ul {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-flow: row wrap;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: start;
+    -webkit-align-items: flex-start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    -webkit-align-content: flex-start;
+    -ms-flex-line-pack: start;
+    align-content: flex-start;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.show-pannel li {
+    position: relative;
+    box-sizing: border-box;
+    -webkit-box-flex: 0;
+    -webkit-flex: none;
+    -ms-flex: none;
+    flex: none;
+    width: 300px;
+    background: url(img/backpic2.jpg) -170px 0 no-repeat;
+    height: 300px;
+    border-radius: 20px;
+}
+
+.show-pannel li:nth-child(3n-1) {
+    background: url(img/backpirope.png) -170px 0 no-repeat;
+}
+
+.show-pannel li:nth-child(3n) {
+    background: url(img/backpic3.jpg) 0 0 no-repeat;
+    background-size: 100% 100%;
+}
+
+.show-pannel ul li {
+    margin: 0 15px 15px 0;
+    width: 31%;
+}
+
+.show-pannel h2 {
+    margin-top: 20px;
+    font-size: 48px;
+    color: #fff;
+}
+
+.show-pannel li > p {
+    font-size: 20px;
+    margin-top: 10px;
+    color: #fff;
+}
+
+.show-pannel .yellow {
+    position: absolute;
+    z-index: 30;
+    left: 5%;
+    top: 50%;
+    width: 32%;
+    height: 35%;
+    background-color: #eea800;
+    box-shadow: 10px 10px 30px #222;
+}
+
+.show-pannel div p {
+    font-size: 18px;
+}
+
+.show-pannel div span {
+    font-size: 22px;
+}
+
+.yellow p {
+    width: 90%;
+    position: absolute;
+    bottom: 5%;
+    left: 8%;
+}
+
+.show-pannel .yellow img {
+    position: absolute;
+    right: 5%;
+    top: 10%;
+}
+
+.yellow, .blue, .red {
+    border-radius: 18px;
+}
+
+.blue {
+    position: absolute;
+    z-index: 20;
+    background-color: #2283f6;
+    width: 35%;
+    height: 30%;
+    left: 35%;
+    top: 60%;
+    box-shadow: 10px 10px 30px #222;
+}
+
+.blue img {
+    position: absolute;
+    left: 15%;
+    top: 10%;
+}
+
+.blue a {
+    position: absolute;
+    width: 42px;
+    height: 42px;
+    top: 10%;
+    right: 10%;
+    background: url(img/refresh.jpg) 0 0 no-repeat;
+}
+
+.blue a:hover {
+    background: url(img/refresh_hover.jpg) 0 0 no-repeat;
+}
+
+.blue p {
+    position: absolute;
+    bottom: 10%;
+    left: 15%;
+}
+
+.red {
+    position: absolute;
+    z-index: 10;
+    background-color: #fe3d50;
+    width: 35%;
+    height: 30%;
+    left: 60%;
+    top: 41%;
+    box-shadow: 10px 10px 30px #222;
+}
+
+.red img {
+    position: absolute;
+    top: 10%;
+    right: 10%;
+}
+
+.red p {
+    position: absolute;
+    bottom: 20%;
+    left: 30%;
+}
+
+.show-pannel button {
+    position: absolute;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    width: 70%;
+    font-size: 3rem;
+    line-height: 3rem;
+}
+
+.reset {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 50%;
+    height: 50%;
+    border-radius: 10%;
+    border-color: #2d223d;
+    border: 0;
+    outline: 0;
+    background-color: #2d223d;
+    box-shadow: 10px 10px 3px #222;
+}
+
+.start {
+    top: 18%;
+}
+
+.end {
+    top: 44%;
+}
+
+.ansy {
+    top: 70%;
+    color: #555;
+}
+
+.config-layer {
+    color: #000;
+    font-size: 1rem;
+}
+
+.config-layer .layui-form-item {
+    padding: 10px;
+}
+
+.layui-form-item {
+    padding: 10px;
+    font-size: 2rem;
+    margin: 0 auto;
+}
+
+.layui-form-item label {
+    display: inline-block;
+    width: 184px;
+    text-align: right;
+}
+
+.layui-form-item .layui-input-inline {
+    display: inline-block;
+}
+
+.layui-form-item .layui-input-inline input {
+    width: 300px;
+    font-size: 1.5rem;
+}
+
+.layui-form-item .layui-input-inline textarea {
+    font-size: 1.5rem;
+    width: 300px;
+    height: 100px;
+}
+
+.layui-form-item .layui-button {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-justify-content: space-around;
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+}
+
+.layui-form-item .layui-button button {
+    height: 50px;
+    width: 122px;
+    font-size: 2rem;
+}
+
+.layui-btn-warm {
+    background-color: #eea800;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.layui-form-item .mac-css {
+    position: relative;
+    top: -88px;
+}
+
+.circle {
+    display: none;
+    width: 30px;
+    height: 30px;
+    background: red;
+    -moz-border-radius: 60px;
+    -webkit-border-radius: 60px;
+    border-radius: 60px;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.send_button {
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    transform: none !important;
+    font-size: 24px !important;
+    line-height: normal !important;
+}
+
+.layui-form-item {
+
+}
+
+.config-input {
+    width: 524px;
+    height: 50px;
+    position: absolute;
+    top: 40px;
+    right: 112px;
+}
+
+.config-btn {
+    position: absolute;
+    top: 41px;
+    right: 32px;
+    z-index: 2;
+    background: transparent;
+}
+
+.start-btn {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+}
+
+.bracelet_input {
+    height: 25px;
+    width: 58%;
+    margin: 0px 15px 0px 18px;
+    border-radius: 5px;
+    -moz-box-shadow: 2px 2px 10px #eea800;
+    -webkit-box-shadow: 2px 2px 10px #eea800;
+    box-shadow: 2px 2px 10px #eea800;
+    border-color: #eea800;
+}
+
+.bottom_button {
+    position: absolute;
+    bottom: 30px;
+    width: 100%;
+    text-align: center;
+    clear: both;
+}
+
+/*.screen-reader-text {*/
+/*position: absolute;*/
+/*top: -9999px;*/
+/*left: -9999px;*/
+/*}*/
+
+/*@font-face {*/
+/*font-family: 'fontello';*/
+/*src: url('http://css-tricks.com/examples/RoundButtons/fonts/fontello.eot');*/
+/*src: url('http://css-tricks.com/examples/RoundButtons/fonts/fontello.eot?#iefix') format('embedded-opentype'),*/
+/*url('http://css-tricks.com/examples/RoundButtons/fonts/fontello.woff') format('woff'),*/
+/*url('http://css-tricks.com/examples/RoundButtons/fonts/fontello.ttf') format('truetype'),*/
+/*url('http://css-tricks.com/examples/RoundButtons/fonts/fontello.svg#fontello') format('svg');*/
+/*font-weight: normal;*/
+/*font-style: normal;*/
+/*}*/
+
+[class*="icon-"] {
+    /*font-family: 'fontello';*/
+    font-style: normal;
+    font-size: 8em;
+    speak: none;
+}
+
+/*.icon-home:after {*/
+/*content: "\2302";*/
+/*}*/
+
+/*.icon-cog:after {*/
+/*content: "\2699";*/
+/*}*/
+
+/*.icon-cw:after {*/
+/*content: "\27f3";*/
+/*}*/
+
+/*.icon-location:after {*/
+/*content: "\e724";*/
+/*}*/
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/*html {*/
+/*background: #f7f7f7 url(http://css-tricks.com/examples/RoundButtons/images/bg.png) repeat center top;*/
+/*}*/
+
+/*.nav {*/
+/*list-style: none;*/
+/*text-align: center;*/
+/*}*/
+
+.nav li {
+    position: relative;
+    display: inline-block;
+    margin-right: -4px;
+}
+
+.nav li:before {
+    content: "";
+    display: block;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #fff;
+    width: 100%;
+    height: 1px;
+    position: absolute;
+    top: 50%;
+    z-index: -1;
+}
+
+.nav a:link, .nav a:visited {
+    display: block;
+    text-decoration: none;
+    background-color: #f7f7f7;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#f7f7f7), to(#e7e7e7));
+    background-image: -webkit-linear-gradient(top, #f7f7f7, #e7e7e7);
+    background-image: -moz-linear-gradient(top, #f7f7f7, #e7e7e7);
+    background-image: -ms-linear-gradient(top, #f7f7f7, #e7e7e7);
+    background-image: -o-linear-gradient(top, #f7f7f7, #e7e7e7);
+    color: #a7a7a7;
+    width: 130px;
+    height: 130px;
+    position: relative;
+    text-align: center;
+    line-height: 144px;
+    border-radius: 50%;
+    box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
+    border: solid 1px transparent;
+}
+
+.nav a:before {
+    content: "";
+    display: block;
+    background: #fff;
+    border-top: 2px solid #ddd;
+    position: absolute;
+    top: -18px;
+    left: -18px;
+    bottom: -18px;
+    right: -18px;
+    z-index: -1;
+    border-radius: 50%;
+    box-shadow: inset 0px 8px 48px #ddd;
+}
+
+.nav a:active {
+    box-shadow: none;
+    border: solid 1px #a7a7a7;
+}
+
+.nav a:hover {
+    text-decoration: none;
+    color: #555;
+    background: #f5f5f5;
+}
