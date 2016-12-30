@@ -4,6 +4,8 @@ html, body {
     font-size: 62.5%;
     background-color: #061223 !important;
     color: #fff !important;
+    min-width: 1000px;
+    overflow: auto;
 }
 
 .clearfix:after {
@@ -84,7 +86,7 @@ section h1 {
     -webkit-box-pack: center;
     -webkit-justify-content: center;
     -ms-flex-pack: center;
-    justify-content: center;
+    justify-content: space-around;
     -webkit-box-align: start;
     -webkit-align-items: flex-start;
     -ms-flex-align: start;
@@ -93,35 +95,37 @@ section h1 {
     -ms-flex-line-pack: start;
     align-content: flex-start;
     height: 100%;
-    margin: 0 auto;
-}
-
-.show-pannel li {
-    position: relative;
-    box-sizing: border-box;
-    -webkit-box-flex: 0;
-    -webkit-flex: none;
-    -ms-flex: none;
-    flex: none;
-    width: 300px;
-    background: url(img/backpic2.jpg) -170px 0 no-repeat;
-    height: 300px;
-    border-radius: 20px;
-}
-
-.show-pannel li:nth-child(3n-1) {
-    background: url(img/backpirope.png) -170px 0 no-repeat;
-}
-
-.show-pannel li:nth-child(3n) {
-    background: url(img/backpic3.jpg) 0 0 no-repeat;
-    background-size: 100% 100%;
 }
 
 .show-pannel ul li {
-    margin: 0 15px 15px 0;
-    width: 31%;
+    position: relative;
+    box-sizing: border-box;
+    flex:1;
+    background: url(img/backpic1.png) 0 0 no-repeat;
+   margin:20px;
+    height: 300px;
+    border-radius: 20px;
+    /*max-width: 300px;*/
+    background-size: cover;
 }
+
+.show-pannel li:nth-child(3n-1) {
+    background: url(img/backpic2.png) 0 0 no-repeat;
+    background-size: cover;
+}
+.show-pannel li:nth-child(3n-1) img {
+    left:50%;
+}
+
+.show-pannel li:nth-child(3n) {
+    background: url(img/backpic3.png) 0 0 no-repeat;
+    background-size: cover;
+}
+.show-pannel li:nth-child(3n) .red p  {
+    left:30%;
+    bottom: 10%;
+}
+
 
 .show-pannel h2 {
     margin-top: 20px;
@@ -134,14 +138,16 @@ section h1 {
     margin-top: 10px;
     color: #fff;
 }
+.show-pannel .yellow,.show-pannel .blue,.show-pannel .red{
+    height: 35%;
+}
 
 .show-pannel .yellow {
     position: absolute;
     z-index: 30;
-    left: 5%;
+    left: 2%;
     top: 50%;
-    width: 32%;
-    height: 35%;
+    width: 40%;
     background-color: #eea800;
     box-shadow: 10px 10px 30px #222;
 }
@@ -151,14 +157,14 @@ section h1 {
 }
 
 .show-pannel div span {
-    font-size: 22px;
+    font-size: 28px;
 }
 
 .yellow p {
     width: 90%;
     position: absolute;
     bottom: 5%;
-    left: 8%;
+    left: 2%;
 }
 
 .show-pannel .yellow img {
@@ -175,7 +181,7 @@ section h1 {
     position: absolute;
     z-index: 20;
     background-color: #2283f6;
-    width: 35%;
+    width: 40%;
     height: 30%;
     left: 35%;
     top: 60%;
@@ -211,9 +217,9 @@ section h1 {
     position: absolute;
     z-index: 10;
     background-color: #fe3d50;
-    width: 35%;
+    width: 40%;
     height: 30%;
-    left: 60%;
+    left: 58%;
     top: 41%;
     box-shadow: 10px 10px 30px #222;
 }
@@ -221,24 +227,34 @@ section h1 {
 .red img {
     position: absolute;
     top: 10%;
-    right: 10%;
+    right: 15%;
 }
 
 .red p {
     position: absolute;
     bottom: 20%;
-    left: 30%;
+    right: 10%;
 }
-
-.show-pannel button {
-    position: absolute;
-    left: 50%;
-    -webkit-transform: translateX(-50%);
-    -ms-transform: translateX(-50%);
-    transform: translateX(-50%);
-    width: 70%;
+.input-mesg{
+    margin-left: 10px;
+    margin-right: 20px;
+    width:50%;
+    padding-left: 10px;
+    height: 38px;
+    border: 1px solid #e6e6e6;
+    background-color: #fff;
+     border-radius:8px;
+     font-size: 2rem;
+}
+.send_button {
     font-size: 3rem;
-    line-height: 3rem;
+    height: 40px;
+    width:35%;
+    line-height: 40px;
+    border-radius:8px;
+    padding-left:10px;
+    padding-right:10px;
+    
 }
 
 .reset {
@@ -277,8 +293,9 @@ section h1 {
 }
 
 .config-layer .layui-form-item {
-    padding: 10px;
+    padding: 15px;
 }
+
 
 .layui-form-item {
     padding: 10px;
@@ -290,6 +307,9 @@ section h1 {
     display: inline-block;
     width: 184px;
     text-align: right;
+    color: #444;
+    line-height: 36px;
+    margin-right: 5px;
 }
 
 .layui-form-item .layui-input-inline {
@@ -297,8 +317,11 @@ section h1 {
 }
 
 .layui-form-item .layui-input-inline input {
-    width: 300px;
+    width: 524px;
     font-size: 1.5rem;
+    line-height: 50px;
+    height: 50px;
+    border-radius: 5px;
 }
 
 .layui-form-item .layui-input-inline textarea {
@@ -321,12 +344,7 @@ section h1 {
     height: 50px;
     width: 122px;
     font-size: 2rem;
-}
-
-.layui-btn-warm {
-    background-color: #eea800;
     border-radius: 5px;
-    font-weight: bold;
 }
 
 .layui-form-item .mac-css {
@@ -335,10 +353,9 @@ section h1 {
 }
 
 .circle {
-    display: none;
     width: 30px;
     height: 30px;
-    background: red;
+    /*background: red;*/
     -moz-border-radius: 60px;
     -webkit-border-radius: 60px;
     border-radius: 60px;
@@ -347,26 +364,32 @@ section h1 {
     right: 0;
 }
 
-.send_button {
-    position: static !important;
-    width: auto !important;
-    height: auto !important;
-    transform: none !important;
-    font-size: 24px !important;
-    line-height: normal !important;
+.start-btn{
+    display: flex;
+    justify-content: center;
+}
+.start-btn a{
+    width:350px;
+    height:350px;
+    background: url('img/button_normal.png') 0 0 no-repeat;
+    background-size:cover;
+    border:none;
 }
 
-.layui-form-item {
-
+.start-btn a:hover{
+    
+    /*background: url('img/button_selected.png') 0 0 no-repeat;*/
+   opacity: .9;
+   transition: all .2s;
+}
+.start-btn a:active{
+    opacity: .8;
+    transition: all .2s;
 }
 
-.config-input {
-    width: 524px;
-    height: 50px;
-    position: absolute;
-    top: 40px;
-    right: 112px;
-}
+
+
+/**/
 
 .config-btn {
     position: absolute;
@@ -376,148 +399,3 @@ section h1 {
     background: transparent;
 }
 
-.start-btn {
-    position: absolute;
-    bottom: 10px;
-    left: 50%;
-}
-
-.bracelet_input {
-    height: 25px;
-    width: 58%;
-    margin: 0px 15px 0px 18px;
-    border-radius: 5px;
-    -moz-box-shadow: 2px 2px 10px #eea800;
-    -webkit-box-shadow: 2px 2px 10px #eea800;
-    box-shadow: 2px 2px 10px #eea800;
-    border-color: #eea800;
-}
-
-.bottom_button {
-    position: absolute;
-    bottom: 30px;
-    width: 100%;
-    text-align: center;
-    clear: both;
-}
-
-/*.screen-reader-text {*/
-/*position: absolute;*/
-/*top: -9999px;*/
-/*left: -9999px;*/
-/*}*/
-
-/*@font-face {*/
-/*font-family: 'fontello';*/
-/*src: url('http://css-tricks.com/examples/RoundButtons/fonts/fontello.eot');*/
-/*src: url('http://css-tricks.com/examples/RoundButtons/fonts/fontello.eot?#iefix') format('embedded-opentype'),*/
-/*url('http://css-tricks.com/examples/RoundButtons/fonts/fontello.woff') format('woff'),*/
-/*url('http://css-tricks.com/examples/RoundButtons/fonts/fontello.ttf') format('truetype'),*/
-/*url('http://css-tricks.com/examples/RoundButtons/fonts/fontello.svg#fontello') format('svg');*/
-/*font-weight: normal;*/
-/*font-style: normal;*/
-/*}*/
-
-[class*="icon-"] {
-    /*font-family: 'fontello';*/
-    font-style: normal;
-    font-size: 8em;
-    speak: none;
-}
-
-/*.icon-home:after {*/
-/*content: "\2302";*/
-/*}*/
-
-/*.icon-cog:after {*/
-/*content: "\2699";*/
-/*}*/
-
-/*.icon-cw:after {*/
-/*content: "\27f3";*/
-/*}*/
-
-/*.icon-location:after {*/
-/*content: "\e724";*/
-/*}*/
-
-* {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-/*html {*/
-/*background: #f7f7f7 url(http://css-tricks.com/examples/RoundButtons/images/bg.png) repeat center top;*/
-/*}*/
-
-/*.nav {*/
-/*list-style: none;*/
-/*text-align: center;*/
-/*}*/
-
-.nav li {
-    position: relative;
-    display: inline-block;
-    margin-right: -4px;
-}
-
-.nav li:before {
-    content: "";
-    display: block;
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #fff;
-    width: 100%;
-    height: 1px;
-    position: absolute;
-    top: 50%;
-    z-index: -1;
-}
-
-.nav a:link, .nav a:visited {
-    display: block;
-    text-decoration: none;
-    background-color: #f7f7f7;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#f7f7f7), to(#e7e7e7));
-    background-image: -webkit-linear-gradient(top, #f7f7f7, #e7e7e7);
-    background-image: -moz-linear-gradient(top, #f7f7f7, #e7e7e7);
-    background-image: -ms-linear-gradient(top, #f7f7f7, #e7e7e7);
-    background-image: -o-linear-gradient(top, #f7f7f7, #e7e7e7);
-    color: #a7a7a7;
-    width: 130px;
-    height: 130px;
-    position: relative;
-    text-align: center;
-    line-height: 144px;
-    border-radius: 50%;
-    box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
-    border: solid 1px transparent;
-}
-
-.nav a:before {
-    content: "";
-    display: block;
-    background: #fff;
-    border-top: 2px solid #ddd;
-    position: absolute;
-    top: -18px;
-    left: -18px;
-    bottom: -18px;
-    right: -18px;
-    z-index: -1;
-    border-radius: 50%;
-    box-shadow: inset 0px 8px 48px #ddd;
-}
-
-.nav a:active {
-    box-shadow: none;
-    border: solid 1px #a7a7a7;
-}
-
-.nav a:hover {
-    text-decoration: none;
-    color: #555;
-    background: #f5f5f5;
-}

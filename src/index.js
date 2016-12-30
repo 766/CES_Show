@@ -52,42 +52,42 @@ $(function () {
         fillData(defaultData.devices);
     }
     
-    let alertContent = `<div class="layui-form">
-				<div class="layui-form-item">
-					<label class="layui-form-label">HUB IP</label>
-					<div class="layui-input-inline">
-						<input type="text" name="hubIp" id="hub_ip" placeholder="Please type the local hub's ip"   value="" class="config-input">
-					</div>
-				</div>
+    let alertContent = `<div class="layui-form config">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">HUB IP</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="hubIp" id="hub_ip" placeholder="Please type the local hub's ip"   value="" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">Bracelet & User</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="bracelet_mac" id="bracelet_mac"  placeholder="Please type the device mac with user" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">Skip & User</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="skip_mac"   id="skip_mac" placeholder="Example: E9:14:DD:A4:C2:9C,User1" class="layui-input">
+                    </div>
+                </div>
+                
+                <div class="layui-form-item">
+                    <label class="layui-form-label">Belt & User</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="belt_mac"   id="belt_mac" class="layui-input">
+                    </div>
+                </div>
 
-				<div class="layui-form-item">
-					<label class="layui-form-label">Bracelet & User</label>
-					<div class="layui-input-inline">
-						<input type="text" name="bracelet_mac" id="bracelet_mac"  placeholder="Please type the device mac with user" class="layui-input">
-					</div>
-				</div>
-				<div class="layui-form-item">
-					<label class="layui-form-label">Skip & User</label>
-					<div class="layui-input-inline">
-						<input type="text" name="skip_mac"   id="skip_mac" placeholder="Example: E9:14:DD:A4:C2:9C,User1" class="layui-input">
-					</div>
-				</div>
-				
-				<div class="layui-form-item">
-					<label class="layui-form-label">Belt & User</label>
-					<div class="layui-input-inline">
-						<input type="text" name="belt_mac"   id="belt_mac" class="layui-input">
-					</div>
-				</div>
+                <div class="layui-form-item">
+                    <div class="layui-button" style='padding: 0px 61px;'>
+                        <button class="layui-btn layui-btn-warm" id="test" >test</button>
+                        <button class="layui-btn layui-btn-warm" id="reset">Reset</button>
+                        <button class="layui-btn layui-btn-warm" id="finish" >Done</button>
+                    </div>
+                </div>
 
-				<div class="layui-form-item">
-					<div class="layui-button">
-						<button class="layui-btn" id="finish" >Done</button>
-						<button class="layui-btn layui-btn-primary" id="reset">Reset</button>
-					</div>
-				</div>
-
-			</div>`;
+            </div>`;
     
     
     /**
@@ -104,20 +104,20 @@ $(function () {
                         uiHtml += (`
                         <li>
                         <h2>${device.user}</h2><div class="circle" id="bracelet_status"></div>
-                        <div><input id="content" class="bracelet_input"><button id="send" class="layui-btn layui-btn-warm send_button">Say Hi</button></div>
+                        <div><input id="content" type="text" class="layui-input-inline input-mesg"><button id="send" class="layui-btn layui-btn-warm send_button">Say Hi</button></div>
                         <div class="yellow">
                         <img src="./src/img/fire_static.jpg" alt="icon">
-                        <p><span id="b_cal"></span>卡</p>
+                        <p><span id="b_cal">999999</span>Cal</p>
                         </div>
                         <div class="red">
 						<img src="./src/img/heart_staic.jpg" alt="icon">
-						<p><span id="b_hr"></span>/s</p>
+						<p><span id="b_hr">100</span>/s</p>
 					    </div>
 					    
 					    <div class="blue">
                         <img src="./src/img/running_static.jpg" alt="icon">
                         <a href="javascript:;" mac=${obj.mac}></a>
-                        <p><span id="b_step"></span>步</p>
+                        <p><span id="b_step">999999</span>Steps</p>
                         </div>
                         </li>
                         `);
@@ -129,7 +129,7 @@ $(function () {
 
                         <div class="blue" style="left: 13%;top: 42%">
 						<img src="./src/gif/rope.gif" alt="icon">
-						<p><span id="rate">2</span></p>
+						<p><span id="rate">2</span>/times</p>
 					    </div>
                         </li>
                         `);
@@ -140,7 +140,7 @@ $(function () {
                         <h2>${device.user}</h2><div class="circle" id="belt_status"></div> 
                         <div class="red" style="left: 13%;top: 42%">
 						<img src="./src/gif/heart.gif" alt="icon">
-						<p><span id="hr">2</span>/s</p>
+						<p><span id="hr">100</span>/s</p>
 					    </div>
                         </li>
                         `);
@@ -249,7 +249,7 @@ $(function () {
             layerIndex = layer.open({
                 skin: 'config-layer',
                 type: 1,
-                title: ['Config', 'font-size:18px;background:#f0a900;height:75px'],
+                title: ['Config', 'font-size:30px;background:#f0a900;padding-top:10px;padding-bottom:10px;padding-left:20px;color:#fff;height:55px;line-height:55px;'],
                 moveType: 1,
                 area: ['892px', '545px'],
                 shadeClose: true, //点击遮罩关闭
