@@ -39,7 +39,7 @@ skip.notify = function (htmlElement, data) {
         skip.onDisconnect();
         clearInterval(skipHeart)
     }, 10 * SECOND_UNIT);
-    htmlElement.html(data.skipNumber + "of" + parseInt(parseInt(data.timeInterval, 16) / 1024) + "s");
+    htmlElement.html(data.skipNumber);
 };
 
 skip.setDisconnectListener = function (onDisconnect) {

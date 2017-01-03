@@ -88,7 +88,7 @@
     }
     
     api.scan = function (chip) {
-        __es(api.scan, api.server + '/gap/nodes/?event=1&mac=' + api.hub + '&chip=' + (chip || 1) + '&access_token=' + api.access_token,
+        __es(api.scan, api.server + '/gap/nodes/?event=1&mac=' + api.hub + '&chip=' + (chip || 0) + '&access_token=' + api.access_token,
             function (event) {
                 api.trigger('scan', [api.hub, event.data])
             });
