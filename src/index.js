@@ -201,13 +201,14 @@ $(function () {
     body.delegate('#startWork', 'click', function () {
         let beltHeart;
         console.log('scan clicked');
-        
         if (config == 'normal') {
+            apiImpl.scan.close();
             apiImpl.scan()
         } else {
             clearInterval(timer1);
             clearInterval(timer2);
             testRun();
+            return;
         }
         
         apiImpl.on('scan', function (hub, data) {
@@ -225,7 +226,7 @@ $(function () {
                 beltHeart = setInterval(function () {
                     // beltStatus.css('background', 'red');
                     $('#belt_hr_img').attr('src', "./src/img/heart_staic.jpg");
-                    $('#hr').html(0);
+                    // $('#hr').html(0);
                     clearInterval(beltHeart)
                 }, 10 * SECOND_UNIT);
                 // beltStatus.css('background', 'green');
@@ -248,7 +249,7 @@ $(function () {
                                     // calImg.attr('src', './src/img/fire_static.jpg');
                                     stepImg.attr('src', './src/img/running_static.jpg');
                                 });
-                                $("#b_hr").html(0);
+                                // $("#b_hr").html(0);
                             });
                             bracelet.connect(mac, type);
                         } else if (utils.isSkip(mac)) {
@@ -257,7 +258,7 @@ $(function () {
                                 skip.disconnect(function () {
                                     $('#skip_img').attr('src', './src/img/rope_staic.png');
                                 });
-                                $("#rate").html(0);
+                                // $("#rate").html(0);
                             });
                             skip.connect(mac, type, function () {
                                 skip.openSkip();
